@@ -2,10 +2,14 @@ Statistical_Analysis
 ====================
 
 =module Statistic
-    statistic functions made by eriko, modified by koshiro.
+
+    statistical functions made by eriko, modified by koshiro.
     in $HOME/lib/ruby/1.8 or $HOME/lib/ruby/1.9.1
 
+    You need Ruby/GSL libraries.
+
 ==Module Functions
+
 ---rcov_sample(fx, fy) => cov
     標本共分散を返す
 
