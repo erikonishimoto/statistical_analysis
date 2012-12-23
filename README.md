@@ -7,25 +7,25 @@
 
 ==Module Functions
 ---rcov_sample(fx, fy) => cov
-    $BI8K\6&J,;6$rJV$9(B
+    標本共分散を返す
 
     ARGUMENTS
     * fx : Array or NArray
     * fy : Array or NArray
     RETURN VALUES
-    * cov: Real, $B6&J,;6(B
+    * cov: Real, 共分散
 
 ---rcov(fx, fy) => cov
-    $BITJP6&J,;6$rJV$9(B
+    不偏共分散を返す
 
     ARGUMENTS
     * fx : Array or NArray
     * fy : Array or NArray
     RETURN VALUES
-    * cov: Real, $B6&J,;6(B
+    * cov: Real, 共分散
 
 ---rcor(fx, fy) => a,b,r
-    $BAj4X2r@O$r9T$J$&(B. 
+    相関解析を行なう. 
 
     ARGUMENTS
     * fx : Array or NArray
@@ -34,31 +34,31 @@
     * a  : Real
     * b  : Real
       * y = a*x + b
-    * r  : Real, $BAj4X78?t(B
+    * r  : Real, 相関係数
 
 ---student_test(rcor,n,p=0.05,i=2) => t0,st,state
-    t$B8!Dj$r9T$J$&(B. 
+    t検定を行なう. 
 
     ARGUMENTS
-    * rcor : $BAj4X78?t(B
-    * n : $B%G!<%??t(B
-    * p : $BM-0U?e=`(B(default 0.05)
-    * i : $BJRB&8!Dj$N>l9g(B 1, $BN>B&8!Dj$N>l9g(B 2 (default 2)
+    * rcor : 相関係数
+    * n : データ数
+    * p : 有意水準(default 0.05)
+    * i : 片側検定の場合 1, 両側検定の場合 2 (default 2)
     RETURN VALUES
-    * t0 : $BAj4X78?t(Brcor, $B%G!<%??t(Bn$B$G$N(Bt$BCM(B
-    * st : $B<+M3EY(Bn-2, $BM-0U?e=`(Bp$B$G$N(Bt$BCM(B
-    * state : |t0|>=st $B$GM-0U$@$C$?>l9g(Btrue, |t0|<st $B$GM-0U$G$O$J$+$C$?>l9g(Bfalse
+    * t0 : 相関係数rcor, データ数nでのt値
+    * st : 自由度n-2, 有意水準pでのt値
+    * state : |t0|>=st で有意だった場合true, |t0|<st で有意ではなかった場合false
 
 ---significance_level(n,p=0.05,i=2) => rcor
-    $B$"$kI8K\?t$K$*$$$FM-0U?e=`$rK~$9Aj4X78?t$r5a$a$k(B
+    ある標本数において有意水準を満す相関係数を求める
 
     ARGUMENTS
-    * n : $B%G!<%??t(B
-    * p : $BM-0U?e=`(B(default 0.05)
-    * i : $BJRB&8!Dj$N>l9g(B 1, $BN>B&8!Dj$N>l9g(B 2 (default 2)
+    * n : データ数
+    * p : 有意水準(default 0.05)
+    * i : 片側検定の場合 1, 両側検定の場合 2 (default 2)
     RETURN VALUES
-    * rcor : $BAj4X78?t(B
+    * rcor : 相関係数
 
 ---weighted_regression( x, y, w )
-    $B=E$_IU$-2s5"D>@~(B
+    重み付き回帰直線
 
