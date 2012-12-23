@@ -1,15 +1,6 @@
-Statistical_Analysis
-====================
-
-==Index
-* ((<module Statistic>))
-  * ((<rcov_population>))
-  * ((<rcov>))
-  * ((<rcor>))
-  * ((<student_test>))
-  * ((<significance_level>))
-  * ((<weighted_regression>))
-
+#Statistical_Analysis
+#====================
+#
 =module Statistic
     statistic functions made by eriko, modified by koshiro.
     in $HOME/lib/ruby/1.8 or $HOME/lib/ruby/1.9.1
