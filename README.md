@@ -1,7 +1,7 @@
 Statistical_Analysis
 ====================
 
-=module Statistic
+module: Statistic
 
     statistical functions made by eriko, modified by koshiro.
     in $HOME/lib/ruby/1.8 or $HOME/lib/ruby/1.9.1
