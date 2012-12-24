@@ -66,6 +66,19 @@
     * i : 片側検定の場合 1, 両側検定の場合 2 (default 2)
     RETURN VALUES
     * rcor : 相関係数
+
+---weighted_regression( x, y, w ) => a,b
+    重み付き回帰直線
+
+    ARGUMENTS
+    * fx : Array or NArray
+    * fy : Array or NArray
+    *  w : weighted function
+    RETURN VALUES
+    * a  : Real
+    * b  : Real
+      * y = a*x + b
+
 =end
 
 require 'narray'
