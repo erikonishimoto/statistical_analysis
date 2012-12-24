@@ -167,11 +167,11 @@ module Statistic
 
   #<<< weighted regression >>>
   #-- 重み付き回帰直線
-  def weighted_regression( x, y, w )
-    wx = (w*x).sum
-    wy = (w*y).sum
-    wxx = (w*x*x).sum
-    wxy = (w*x*y).sum
+  def weighted_regression( fx, fy, w )
+    wx = (w*fx).sum
+    wy = (w*fy).sum
+    wxx = (w*fx*fx).sum
+    wxy = (w*fx*fy).sum
     wsum = w.sum
 
     a = ( wxy/wx - wy/wsum )/( wxx/wx - wx/wsum )
