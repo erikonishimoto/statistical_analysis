@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 =begin
 = Statistical_Analysis
 ==Index
