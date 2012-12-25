@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Statistic</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Statistic</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/statistic_rb.html">
+                statistic.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000003">rcor</a>&nbsp;&nbsp;
+      <a href="#M000002">rcov</a>&nbsp;&nbsp;
+      <a href="#M000001">rcov_sample</a>&nbsp;&nbsp;
+      <a href="#M000005">significance_level</a>&nbsp;&nbsp;
+      <a href="#M000004">student_test</a>&nbsp;&nbsp;
+      <a href="#M000006">weighted_regression</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">rcor</span><span class="method-args">(x,y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+&lt;&lt;&lt; linear regression analysis &gt;&gt;&gt;
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+     <span class="ruby-comment cmt"># File statistic.rb, line 133</span>
+133:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rcor</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>)
+134:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">NArray</span>)
+135:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+136:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'array must be NArray or Array'</span>
+137:       <span class="ruby-keyword kw">end</span>
+138:     <span class="ruby-keyword kw">end</span>
+139:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">y</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">NArray</span>)
+140:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">y</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+141:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'array must be NArray or Array'</span>
+142:       <span class="ruby-keyword kw">end</span>
+143:     <span class="ruby-keyword kw">end</span>
+144: 
+145:     <span class="ruby-identifier">sxy</span> = <span class="ruby-constant">NMath</span><span class="ruby-operator">::</span><span class="ruby-identifier">covariance</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>)
+146:     <span class="ruby-identifier">sx2</span> = <span class="ruby-constant">NMath</span><span class="ruby-operator">::</span><span class="ruby-identifier">covariance</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">x</span>)
+147:     <span class="ruby-identifier">sy2</span> = <span class="ruby-constant">NMath</span><span class="ruby-operator">::</span><span class="ruby-identifier">covariance</span>(<span class="ruby-identifier">y</span>,<span class="ruby-identifier">y</span>)
+148: 
+149:     <span class="ruby-comment cmt">#-- y = a*x + b</span>
+150:     <span class="ruby-identifier">a</span> = <span class="ruby-identifier">sxy</span><span class="ruby-operator">/</span><span class="ruby-identifier">sx2</span>
+151:     <span class="ruby-identifier">b</span> = <span class="ruby-identifier">y</span>.<span class="ruby-identifier">mean</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">a</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">mean</span>
+152:     <span class="ruby-identifier">r</span> = <span class="ruby-identifier">sxy</span><span class="ruby-operator">/</span>(<span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">sx2</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">sy2</span>))
+153:     
+154:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span>,<span class="ruby-identifier">r</span>
+155:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="#M000002" class="method-signature">
+          <span class="method-name">rcov</span><span class="method-args">(x,y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+&lt;&lt;&lt; unbiased covariance &gt;&gt;&gt;
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000002-source">
+<pre>
+     <span class="ruby-comment cmt"># File statistic.rb, line 113</span>
+113:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rcov</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>)
+114:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">NArray</span>)
+115:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+116:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'array must be NArray or Array'</span>
+117:       <span class="ruby-keyword kw">end</span>
+118:     <span class="ruby-keyword kw">end</span>
+119:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">y</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">NArray</span>)
+120:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">y</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+121:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'array must be NArray or Array'</span>
+122:       <span class="ruby-keyword kw">end</span>
+123:     <span class="ruby-keyword kw">end</span>
+124:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">length</span>
+125:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Must be same length'</span>
+126:     <span class="ruby-keyword kw">end</span>
+127: 
+128:     <span class="ruby-identifier">cov</span> = <span class="ruby-constant">NMath</span><span class="ruby-operator">::</span><span class="ruby-identifier">covariance</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>)
+129:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">cov</span>
+130:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="#M000001" class="method-signature">
+          <span class="method-name">rcov_sample</span><span class="method-args">(x,y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+&lt;&lt;&lt; sample covariance &gt;&gt;&gt;
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000001-source">
+<pre>
+     <span class="ruby-comment cmt"># File statistic.rb, line 93</span>
+ 93:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rcov_sample</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>)
+ 94:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">NArray</span>)
+ 95:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+ 96:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'array must be NArray or Array'</span>
+ 97:       <span class="ruby-keyword kw">end</span>
+ 98:     <span class="ruby-keyword kw">end</span>
+ 99:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">y</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">NArray</span>)
+100:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">y</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+101:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'array must be NArray or Array'</span>
+102:       <span class="ruby-keyword kw">end</span>
+103:     <span class="ruby-keyword kw">end</span>
+104:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">length</span>
+105:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Must be same length'</span>
+106:     <span class="ruby-keyword kw">end</span>
+107: 
+108:     <span class="ruby-identifier">cov</span> = (<span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-identifier">y</span>).<span class="ruby-identifier">mean</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">x</span>.<span class="ruby-identifier">mean</span>)<span class="ruby-operator">*</span>(<span class="ruby-identifier">y</span>.<span class="ruby-identifier">mean</span>)
+109:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">cov</span>
+110:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">significance_level</span><span class="method-args">(n,p=0.05,i=2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+&lt;&lt;&lt; significance level &gt;&gt;&gt;
+</p>
+<pre>
+ 標本数nに対して有意水準pを満す相関係数を求める
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+     <span class="ruby-comment cmt"># File statistic.rb, line 175</span>
+175:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">significance_level</span>(<span class="ruby-identifier">n</span>,<span class="ruby-identifier">p</span>=<span class="ruby-value">0</span><span class="ruby-value">.05</span>,<span class="ruby-identifier">i</span>=<span class="ruby-value">2</span>)
+176:     <span class="ruby-identifier">nu</span>=<span class="ruby-identifier">n</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>
+177:     <span class="ruby-identifier">st</span> = <span class="ruby-constant">GSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cdf</span>.<span class="ruby-identifier">tdist_Qinv</span>(<span class="ruby-identifier">p</span><span class="ruby-operator">/</span><span class="ruby-identifier">i</span>.<span class="ruby-identifier">to_f</span>,<span class="ruby-identifier">nu</span>)
+178:     <span class="ruby-identifier">r</span> = <span class="ruby-identifier">st</span><span class="ruby-operator">/</span><span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">nu</span><span class="ruby-operator">+</span><span class="ruby-identifier">st</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)
+179: 
+180:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">r</span>
+181:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">student_test</span><span class="method-args">(rcor,n,p=0.05,i=2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+&lt;&lt;&lt; student t test &gt;&gt;&gt;
+</p>
+<pre>
+ t検定を行なう
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+     <span class="ruby-comment cmt"># File statistic.rb, line 159</span>
+159:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">student_test</span>(<span class="ruby-identifier">rcor</span>,<span class="ruby-identifier">n</span>,<span class="ruby-identifier">p</span>=<span class="ruby-value">0</span><span class="ruby-value">.05</span>,<span class="ruby-identifier">i</span>=<span class="ruby-value">2</span>)
+160:     <span class="ruby-identifier">nu</span>=<span class="ruby-identifier">n</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>
+161:     <span class="ruby-identifier">t0</span> = (<span class="ruby-identifier">rcor</span><span class="ruby-operator">*</span><span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">nu</span><span class="ruby-operator">/</span>(<span class="ruby-value">1.0</span><span class="ruby-operator">-</span><span class="ruby-identifier">rcor</span><span class="ruby-operator">*</span><span class="ruby-identifier">rcor</span>))).<span class="ruby-identifier">abs</span>
+162:     <span class="ruby-identifier">st</span> = <span class="ruby-constant">GSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cdf</span>.<span class="ruby-identifier">tdist_Qinv</span>(<span class="ruby-identifier">p</span><span class="ruby-operator">/</span><span class="ruby-identifier">i</span>.<span class="ruby-identifier">to_f</span>,<span class="ruby-identifier">nu</span>)
+163: 
+164:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t0</span><span class="ruby-operator">&gt;=</span><span class="ruby-identifier">st</span>
+165:       <span class="ruby-identifier">state</span> = <span class="ruby-keyword kw">true</span>
+166:     <span class="ruby-keyword kw">else</span>
+167:       <span class="ruby-identifier">state</span> = <span class="ruby-keyword kw">false</span>
+168:     <span class="ruby-keyword kw">end</span>
+169: 
+170:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">t0</span>,<span class="ruby-identifier">st</span>,<span class="ruby-identifier">state</span>
+171:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">weighted_regression</span><span class="method-args">( fx, fy, w )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+&lt;&lt;&lt; weighted regression &gt;&gt;&gt;
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+     <span class="ruby-comment cmt"># File statistic.rb, line 185</span>
+185:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">weighted_regression</span>( <span class="ruby-identifier">fx</span>, <span class="ruby-identifier">fy</span>, <span class="ruby-identifier">w</span> )
+186:     <span class="ruby-identifier">wx</span> = (<span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-identifier">fx</span>).<span class="ruby-identifier">sum</span>
+187:     <span class="ruby-identifier">wy</span> = (<span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-identifier">fy</span>).<span class="ruby-identifier">sum</span>
+188:     <span class="ruby-identifier">wxx</span> = (<span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-identifier">fx</span><span class="ruby-operator">*</span><span class="ruby-identifier">fx</span>).<span class="ruby-identifier">sum</span>
+189:     <span class="ruby-identifier">wxy</span> = (<span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-identifier">fx</span><span class="ruby-operator">*</span><span class="ruby-identifier">fy</span>).<span class="ruby-identifier">sum</span>
+190:     <span class="ruby-identifier">wsum</span> = <span class="ruby-identifier">w</span>.<span class="ruby-identifier">sum</span>
+191: 
+192:     <span class="ruby-identifier">a</span> = ( <span class="ruby-identifier">wxy</span><span class="ruby-operator">/</span><span class="ruby-identifier">wx</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">wy</span><span class="ruby-operator">/</span><span class="ruby-identifier">wsum</span> )<span class="ruby-operator">/</span>( <span class="ruby-identifier">wxx</span><span class="ruby-operator">/</span><span class="ruby-identifier">wx</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">wx</span><span class="ruby-operator">/</span><span class="ruby-identifier">wsum</span> )
+193:     <span class="ruby-identifier">b</span> = ( <span class="ruby-identifier">wy</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">a</span><span class="ruby-operator">*</span><span class="ruby-identifier">wx</span> ) <span class="ruby-operator">/</span> <span class="ruby-identifier">wsum</span>
+194: 
+195:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span>
+196:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
