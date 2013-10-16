@@ -10,6 +10,7 @@
   * ((<student_test>))
   * ((<significance_level>))
   * ((<weighted_regression>))
+  * ((<normal_distribution>))
 
 =module Statistic
     statistic functions made by eriko, modified by koshiro.
@@ -73,13 +74,23 @@
     重み付き回帰直線
 
     ARGUMENTS
-    * fx : Array or NArray
-    * fy : Array or NArray
+    * fx : NArray
+    * fy : NArray
     *  w : weighted function
     RETURN VALUES
     * a  : Real
     * b  : Real
       * y = a*x + b
+
+---normal_distribution( x, mu, sigma ) => w
+    正規分布N(mu,sigma^2)を返す。平均値mu=0、標準偏差sigma=1の場合は標準正規分布N(0,1)を返す。
+
+    ARGUMENTS
+    * x : NArray
+    * mu: Float, mean value ( default 0 )
+    * sigma: Float, standard deviation ( default 1 )
+    RETURN VALUES
+    * w: NArray, Normal distribution
 
 =end
 
@@ -193,6 +204,18 @@ module Statistic
     b = ( wy - a*wx ) / wsum
 
     return a,b
+  end
+
+  #<<< Normal distribution / Gaussian distribution >>>
+  #-- 正規分布
+  def normal_distribution( x, mu=0.0, sigma=1.0 )
+    pi = NMath::PI
+
+    xx = -( (x-mu)**2.0 )/( 2.0*sigma**2 )
+    exp_xx = NMath::exp( xx )
+
+    w = 1.0/NMath::sqrt( 2.0*pi*sigma**2 ) * exp_xx
+    return w
   end
 
 end
