@@ -85,27 +85,27 @@ $HOME/lib/ruby/1.8 or $HOME/lib/ruby/1.9</p>
 
 <p>—rcov_sample(fx, fy) =&gt; cov</p>
 
-<pre>$BI8K\6&amp;J,;6$rJV$9(B
+<pre>標本共分散を返す
 
 ARGUMENTS
 * fx : Array or NArray
 * fy : Array or NArray
 RETURN VALUES
-* cov: Real, $B6&amp;J,;6(B</pre>
+* cov: Real, 共分散</pre>
 
 <p>—rcov(fx, fy) =&gt; cov</p>
 
-<pre>$BITJP6&amp;J,;6$rJV$9(B
+<pre>不偏共分散を返す
 
 ARGUMENTS
 * fx : Array or NArray
 * fy : Array or NArray
 RETURN VALUES
-* cov: Real, $B6&amp;J,;6(B</pre>
+* cov: Real, 共分散</pre>
 
 <p>—rcor(fx, fy) =&gt; a,b,r</p>
 
-<pre>$BAj4X2r@O$r9T$J$&amp;(B. 
+<pre>相関解析を行なう. 
 
 ARGUMENTS
 * fx : Array or NArray
@@ -114,36 +114,36 @@ RETURN VALUES
 * a  : Real
 * b  : Real
   * y = a*x + b
-* r  : Real, $BAj4X78?t(B</pre>
+* r  : Real, 相関係数</pre>
 
 <p>—student_test(rcor,n,p=0.05,i=2) =&gt; t0,st,state</p>
 
-<pre>t$B8!Dj$r9T$J$&amp;(B. 
+<pre>t検定を行なう. 
 
 ARGUMENTS
-* rcor : $BAj4X78?t(B
-* n : $B%G!&lt;%??t(B
-* p : $BM-0U?e=`(B(default 0.05)
-* i : $BJRB&amp;8!Dj$N&gt;l9g(B 1, $BN&gt;B&amp;8!Dj$N&gt;l9g(B 2 (default 2)
+* rcor : 相関係数
+* n : データ数
+* p : 有意水準(default 0.05)
+* i : 片側検定の場合 1, 両側検定の場合 2 (default 2)
 RETURN VALUES
-* t0 : $BAj4X78?t(Brcor, $B%G!&lt;%??t(Bn$B$G$N(Bt$BCM(B
-* st : $B&lt;+M3EY(Bn-2, $BM-0U?e=`(Bp$B$G$N(Bt$BCM(B
-* state : |t0|&gt;=st $B$GM-0U$@$C$?&gt;l9g(Btrue, |t0|&lt;st $B$GM-0U$G$O$J$+$C$?&gt;l9g(Bfalse</pre>
+* t0 : 相関係数rcor, データ数nでのt値
+* st : 自由度n-2, 有意水準pでのt値
+* state : |t0|&gt;=st で有意だった場合true, |t0|&lt;st で有意ではなかった場合false</pre>
 
 <p>—significance_level(n,p=0.05,i=2) =&gt; rcor</p>
 
-<pre>$B$&quot;$kI8K\?t$K$*$$$FM-0U?e=`$rK~$9Aj4X78?t$r5a$a$k(B
+<pre>ある標本数において有意水準を満す相関係数を求める
 
 ARGUMENTS
-* n : $B%G!&lt;%??t(B
-* p : $BM-0U?e=`(B (default 0.05)
-* i : $BJRB&amp;8!Dj$N&gt;l9g(B 1, $BN&gt;B&amp;8!Dj$N&gt;l9g(B 2 (default 2)
+* n : データ数
+* p : 有意水準 (default 0.05)
+* i : 片側検定の場合 1, 両側検定の場合 2 (default 2)
 RETURN VALUES
-* rcor : $BAj4X78?t(B</pre>
+* rcor : 相関係数</pre>
 
 <p>—weighted_regression( x, y, w ) =&gt; a,b</p>
 
-<pre>$B=E$_IU$-2s5&quot;D&gt;@~(B
+<pre>重み付き回帰直線
 
 ARGUMENTS
 * fx : NArray or NArrayMiss
@@ -156,7 +156,7 @@ RETURN VALUES
 
 <p>—normal_distribution( x, mu, sigma ) =&gt; w</p>
 
-<pre>$B@55,J,I[(BN(mu,sigma^2)$B$rJV$9!#J?6QCM(Bmu=0$B!&quot;I8=`JP:9(Bsigma=1$B$N&gt;l9g$OI8=`@55,J,I[(BN(0,1)$B$rJV$9!#(B
+<pre>正規分布N(mu,sigma^2)を返す。平均値mu=0、標準偏差sigma=1の場合は標準正規分布N(0,1)を返す。
 
 ARGUMENTS
 *   x : NArray or NArrayMiss
@@ -167,51 +167,51 @@ RETURN VALUES
 
 <p>—expectation( fx, pdf ) =&gt; gx</p>
 
-<pre>$B4|BTCM$r7W;;$9$k!#(B
+<pre>期待値を計算する。
 
 ARGUMENTS
-*  fx : NArray or NarrayMiss, $B3NN(JQ?t(B
-* pdf : NArray or NarrayMiss, $B3NN(L)EY4X?t(B
+*  fx : NArray or NarrayMiss, 確率変数
+* pdf : NArray or NarrayMiss, 確率密度関数
 RETURN VALUES
-*  gx : float, $B4|BTCM(B</pre>
+*  gx : float, 期待値</pre>
 
 <p>—skewness( fx, pdf ) =&gt; skew</p>
 
-<pre>$BODEY$r7W;;$9$k!#(B
+<pre>歪度を計算する。
 
 ARGUMENTS
-*  fx : NArray or NArrayMiss, $B3NN(JQ?t(B
-* pdf : NArray or NArrayMiss, $B3NN(L)EY4X?t(B
+*  fx : NArray or NArrayMiss, 確率変数
+* pdf : NArray or NArrayMiss, 確率密度関数
 RETURN VALUES
-* skew : float, $BODEY(B</pre>
+* skew : float, 歪度</pre>
 
 <p>—skewness_sample( fx ) =&gt; skew_s</p>
 
-<pre>$BI8K\ODEY$r7W;;$9$k!#(B
+<pre>標本歪度を計算する。
 
 ARGUMENTS
 *  fx : NArray or NArrayMiss
 RETURN VALUES
-* skew_s : float, $BI8K\ODEY(B</pre>
+* skew_s : float, 標本歪度</pre>
 
 <p>—kurtosis( fx, pdf ) =&gt; kurtosis</p>
 
-<pre>$B@mEY$r7W;;$9$k!#(B
+<pre>尖度を計算する。
 
 ARGUMENTS
-*  fx : NArray or NArrayMiss, $B3NN(JQ?t(B
-* pdf : NArray or NArrayMiss, $B3NN(L)EY4X?t(B
+*  fx : NArray or NArrayMiss, 確率変数
+* pdf : NArray or NArrayMiss, 確率密度関数
 RETURN VALUES
-* kurtosis : float, $B@mEY(B</pre>
+* kurtosis : float, 尖度</pre>
 
 <p>—kurtosis_sample( fx ) =&gt; kurtosis_s</p>
 
-<pre>$BI8K\@mEY$r7W;;$9$k!#(B
+<pre>標本尖度を計算する。
 
 ARGUMENTS
 *  fx : NArray or NArrayMiss
 RETURN VALUES
-* kurtosis_s : float, $BI8K\@mEY(B</pre>
+* kurtosis_s : float, 標本尖度</pre>
 
   </div>
 
