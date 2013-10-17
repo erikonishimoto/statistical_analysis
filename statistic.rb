@@ -11,6 +11,9 @@
   * ((<significance_level>))
   * ((<weighted_regression>))
   * ((<normal_distribution>))
+  * ((<expectation>))
+  * ((<skewness>))
+  * ((<kurtosis>))
 
 =module Statistic
     statistic functions made by eriko, modified by koshiro.
@@ -65,7 +68,7 @@
 
     ARGUMENTS
     * n : データ数
-    * p : 有意水準(default 0.05)
+    * p : 有意水準 (default 0.05)
     * i : 片側検定の場合 1, 両側検定の場合 2 (default 2)
     RETURN VALUES
     * rcor : 相関係数
@@ -74,8 +77,8 @@
     重み付き回帰直線
 
     ARGUMENTS
-    * fx : NArray
-    * fy : NArray
+    * fx : NArray or NArrayMiss
+    * fy : NArray or NArrayMiss
     *  w : weighted function
     RETURN VALUES
     * a  : Real
@@ -86,11 +89,38 @@
     正規分布N(mu,sigma^2)を返す。平均値mu=0、標準偏差sigma=1の場合は標準正規分布N(0,1)を返す。
 
     ARGUMENTS
-    * x : NArray
-    * mu: Float, mean value ( default 0 )
-    * sigma: Float, standard deviation ( default 1 )
+    *   x : NArray or NArrayMiss
+    *  mu : Float, mean value ( default 0 )
+    * sigma : Float, standard deviation ( default 1 )
     RETURN VALUES
-    * w: NArray, Normal distribution
+    *   w : NArray, Normal distribution
+
+---expectation( fx, pdf ) => gx
+    期待値を計算する。
+
+    ARGUMENTS
+    *  fx : NArray or NarrayMiss, 確率変数
+    * pdf : NArray or NarrayMiss, 確率密度関数
+    RETURN VALUES
+    *  gx : float, 期待値
+
+---skewness( fx, pdf ) => skew
+    歪度を計算する。
+
+    ARGUMENTS
+    *  fx : NArray or NArrayMiss, 確率変数
+    * pdf : NArray or NArrayMiss, 確率密度関数
+    RETURN VALUES
+    * skew : float, 歪度
+
+---kurtosis( fx, pdf ) => kurtosis
+    尖度を計算する。
+
+    ARGUMENTS
+    *  fx : NArray or NArrayMiss, 確率変数
+    * pdf : NArray or NArrayMiss, 確率密度関数
+    RETURN VALUES
+    * kurtosis : float, 尖度
 
 =end
 
