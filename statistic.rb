@@ -218,4 +218,40 @@ module Statistic
     return w
   end
 
+  #<<< expectation >>>
+  #-- 期待値
+  def expectation( fx, pdf )
+    gx = fx.mul_add( pdf, 0 )
+  end
+
+  #<<< Skewness >>>
+  #-- 歪度
+  def skewness( fx, pdf )
+    mu = fx.mean
+    sigma = fx.stddev
+
+    e_fx3 = expectation( fx**3, pdf )
+    e_fx2 = 3.0 * mu * expectation( fx**2, pdf )
+    e_fx1 = 2.0 * mu**3
+    skew = ( e_fx3 + e_fx2 + e_fx1 ) / sigma**3
+
+    return skew
+  end
+
+  #<<< Kurtosis >>>
+  #-- 尖度
+  def kurtosis( fx, pdf )
+    mu = fx.mean
+    sigma = fx.stddev
+
+    e_fx4 = expectation( fx**4, pdf )
+    e_fx3 =  -4.0 * mu * expectation( fx**3, pdf )
+    e_fx2 =   6.0 * mu**2 * expectation( fx**2, pdf )
+    e_fx1 =   3.0 * mu**4
+    kurtosis = ( e_fx4 + e_fx3 + e_fx2 + e_fx1 )/sigma**4
+
+    return kurtosis
+  end
+
 end
+
