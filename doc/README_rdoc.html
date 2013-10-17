@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>File: README.rdoc [RDoc Documentation]</title>
+
+  <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet" />
+
+  <script src="./js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file">
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    
+<p>Statistical_Analysis</p>
+
+<h20></h20>
+
+<h2>module Statistic</h2>
+
+<p>statistical functions made by eriko, modified by koshiro. in
+$HOME/lib/ruby/1.8 or $HOME/lib/ruby/1.9.1</p>
+
+<p>You need Ruby/GSL libraries.</p>
+
+<h2>Module Functions</h2>
+
+<p>—rcov_sample(fx, fy) =&gt; cov</p>
+
+<pre>標本共分散を返す
+
+ARGUMENTS
+* fx : Array or NArray
+* fy : Array or NArray
+RETURN VALUES
+* cov: Real, 共分散</pre>
+
+<p>—rcov(fx, fy) =&gt; cov</p>
+
+<pre>不偏共分散を返す
+
+ARGUMENTS
+* fx : Array or NArray
+* fy : Array or NArray
+RETURN VALUES
+* cov: Real, 共分散</pre>
+
+<p>—rcor(fx, fy) =&gt; a,b,r</p>
+
+<pre>相関解析を行なう. 
+
+ARGUMENTS
+* fx : Array or NArray
+* fy : Array or NArray
+RETURN VALUES
+* a  : Real
+* b  : Real
+  * y = a*x + b
+* r  : Real, 相関係数</pre>
+
+<p>—student_test(rcor,n,p=0.05,i=2) =&gt; t0,st,state</p>
+
+<pre>t検定を行なう. 
+
+ARGUMENTS
+* rcor : 相関係数
+* n : データ数
+* p : 有意水準(default 0.05)
+* i : 片側検定の場合 1, 両側検定の場合 2 (default 2)
+RETURN VALUES
+* t0 : 相関係数rcor, データ数nでのt値
+* st : 自由度n-2, 有意水準pでのt値
+* state : |t0|&gt;=st で有意だった場合true, |t0|&lt;st で有意ではなかった場合false</pre>
+
+<p>—significance_level(n,p=0.05,i=2) =&gt; rcor</p>
+
+<pre>ある標本数において有意水準を満す相関係数を求める
+
+ARGUMENTS
+* n : データ数
+* p : 有意水準 (default 0.05)
+* i : 片側検定の場合 1, 両側検定の場合 2 (default 2)
+RETURN VALUES
+* rcor : 相関係数</pre>
+
+<p>—weighted_regression( x, y, w ) =&gt; a,b</p>
+
+<pre>重み付き回帰直線
+
+ARGUMENTS
+* fx : NArray or NArrayMiss
+* fy : NArray or NArrayMiss
+*  w : weighted function
+RETURN VALUES
+* a  : Real
+* b  : Real
+  * y = a*x + b</pre>
+
+<p>—normal_distribution( x, mu, sigma ) =&gt; w</p>
+
+<pre>正規分布N(mu,sigma^2)を返す。平均値mu=0、標準偏差sigma=1の場合は標準正規分布N(0,1)を返す。
+
+ARGUMENTS
+*   x : NArray or NArrayMiss
+*  mu : Float, mean value ( default 0 )
+* sigma : Float, standard deviation ( default 1 )
+RETURN VALUES
+*   w : NArray, Normal distribution</pre>
+
+<p>—expectation( fx, pdf ) =&gt; gx</p>
+
+<pre>期待値を計算する。
+
+ARGUMENTS
+*  fx : NArray or NarrayMiss, 確率変数
+* pdf : NArray or NarrayMiss, 確率密度関数
+RETURN VALUES
+*  gx : float, 期待値</pre>
+
+<p>—skewness( fx, pdf ) =&gt; skew</p>
+
+<pre>歪度を計算する。
+
+ARGUMENTS
+*  fx : NArray or NArrayMiss, 確率変数
+* pdf : NArray or NArrayMiss, 確率密度関数
+RETURN VALUES
+* skew : float, 歪度</pre>
+
+<p>—kurtosis( fx, pdf ) =&gt; kurtosis</p>
+
+<pre>尖度を計算する。
+
+ARGUMENTS
+*  fx : NArray or NArrayMiss, 確率変数
+* pdf : NArray or NArrayMiss, 確率密度関数
+RETURN VALUES
+* kurtosis : float, 尖度</pre>
+
+  </div>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+</body>
+</html>
+
