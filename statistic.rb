@@ -4,7 +4,7 @@
 = Statistical_Analysis
 ==Index
 * ((<module Statistic>))
-  * ((<rcov_population>))
+  * ((<rcov_sample>))
   * ((<rcov>))
   * ((<rcor>))
   * ((<student_test>))
@@ -13,11 +13,13 @@
   * ((<normal_distribution>))
   * ((<expectation>))
   * ((<skewness>))
+  * ((<skewness_sample>))
   * ((<kurtosis>))
+  * ((<kurtosis_sample>))
 
 =module Statistic
     statistic functions made by eriko, modified by koshiro.
-    in $HOME/lib/ruby/1.8 or $HOME/lib/ruby/1.9.1
+    in $HOME/lib/ruby/1.8 or $HOME/lib/ruby/1.9
 
 ==Module Functions
 ---rcov_sample(fx, fy) => cov
@@ -113,6 +115,14 @@
     RETURN VALUES
     * skew : float, 歪度
 
+---skewness_sample( fx ) => skew_s
+    標本歪度を計算する。
+
+    ARGUMENTS
+    *  fx : NArray or NArrayMiss
+    RETURN VALUES
+    * skew_s : float, 標本歪度
+
 ---kurtosis( fx, pdf ) => kurtosis
     尖度を計算する。
 
@@ -121,6 +131,14 @@
     * pdf : NArray or NArrayMiss, 確率密度関数
     RETURN VALUES
     * kurtosis : float, 尖度
+
+---kurtosis_sample( fx ) => kurtosis_s
+    標本尖度を計算する。
+
+    ARGUMENTS
+    *  fx : NArray or NArrayMiss
+    RETURN VALUES
+    * kurtosis_s : float, 標本尖度
 
 =end
 
@@ -131,7 +149,7 @@ module Statistic
   module_function
 
   #<<< sample covariance >>>
-  def rcov_sample(x,y)
+  def rcov(x,y)
     if !x.is_a?(NArray)
       if !x.is_a?(Array)
         raise 'array must be NArray or Array'
@@ -151,7 +169,7 @@ module Statistic
   end
 
   #<<< unbiased covariance >>>
-  def rcov(x,y)
+  def rcov_sample(x,y)
     if !x.is_a?(NArray)
       if !x.is_a?(Array)
         raise 'array must be NArray or Array'
@@ -258,7 +276,7 @@ module Statistic
   #-- 歪度
   def skewness( fx, pdf )
     mu = fx.mean
-    sigma = fx.stddev
+    sigma = (rcov( fx, fx ))**0.5
 
     e_fx3 = expectation( fx**3, pdf )
     e_fx2 = 3.0 * mu * expectation( fx**2, pdf )
@@ -268,19 +286,45 @@ module Statistic
     return skew
   end
 
+  #-- 標本歪度
+  def skewness_sample( fx )
+    n  = fx.length.to_f
+    mu = fx.mean
+    sigma = fx.stddev
+    std = ( fx - mu )/sigma
+
+    skew_s = n/((n-1)*(n-2)) * std.mul_add( std**2, 0 )
+
+    return skew_s
+  end
+
   #<<< Kurtosis >>>
   #-- 尖度
   def kurtosis( fx, pdf )
     mu = fx.mean
-    sigma = fx.stddev
+    sigma = (rcov( fx, fx ))**0.5
 
     e_fx4 = expectation( fx**4, pdf )
     e_fx3 =  -4.0 * mu * expectation( fx**3, pdf )
     e_fx2 =   6.0 * mu**2 * expectation( fx**2, pdf )
     e_fx1 =   3.0 * mu**4
-    kurtosis = ( e_fx4 + e_fx3 + e_fx2 + e_fx1 )/sigma**4
+    kurtosis = ( e_fx4 + e_fx3 + e_fx2 + e_fx1 )/sigma**4 - 3.0
 
     return kurtosis
+  end
+
+  #-- 標本尖度
+  def kurtosis_sample( fx )
+    n  = fx.length.to_f
+    mu = fx.mean
+    sigma = fx.stddev
+    std = ( fx - mu )/sigma
+
+    kurtosis_s = \
+      (n*(n+1))/((n-1)*(n-2)*(n-3)) * ( std**2 ).mul_add( std**2, 0 )\
+      - 3.0*(n-1)**2/((n-2)*(n-3))
+
+    return kurtosis_s
   end
 
 end
