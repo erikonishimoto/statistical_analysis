@@ -148,7 +148,7 @@ module Statistic
 
   module_function
 
-  #<<< sample covariance >>>
+  #<<< covariance >>>
   def rcov(x,y)
     if !x.is_a?(NArray)
       if !x.is_a?(Array)
@@ -168,7 +168,7 @@ module Statistic
     return cov
   end
 
-  #<<< unbiased covariance >>>
+  #<<< sample covariance >>>
   def rcov_sample(x,y)
     if !x.is_a?(NArray)
       if !x.is_a?(Array)
@@ -201,6 +201,8 @@ module Statistic
       end
     end
 
+    x = NArray.to_na( x ) if x.is_a?(Array)
+    y = NArray.to_na( y ) if y.is_a?(Array)
     sxy = NMath::covariance(x,y)
     sx2 = NMath::covariance(x,x)
     sy2 = NMath::covariance(y,y)
@@ -256,6 +258,7 @@ module Statistic
 
   #<<< Normal distribution / Gaussian distribution >>>
   #-- 正規分布
+  # GSL::Ran.gaussian_pdf( x, sigma ) 
   def normal_distribution( x, mu=0.0, sigma=1.0 )
     pi = NMath::PI
 
