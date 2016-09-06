@@ -75,4 +75,21 @@ module_function
     return state, t0, t_val
   end
 
+  #-- 母平均の差の検定 (分散が大きく違う場合)
+  def welch_t_test( xmean, ymean, xvariance, yvariance, nx, ny, p=0.05, i=2 )
+    t0=( xmean.to_f - ymean.to_f )/Math::sqrt( xvariance/nx.to_f + yvariance/ny.to_f )
+
+    #-- 自由度k
+    c=( xvariance/nx.to_f )/( xvariance/nx.to_f + yvariance/ny.to_f )
+    k=1.0/( c**2/(nx-1).to_f + (1.0-c**2)/(ny-1).to_f )
+
+    #-- t0 が自由度k のt分布に近似的に従う
+    t_val=GSL::Cdf.tdist_Qinv( p/i.to_f, k )
+
+    #---- 帰無仮説: 2組の標本の平均に差がない
+    state=true
+    state=false if t0.abs > t_val   #--- 棄却、差がある
+
+    return state, t0, t_val
+  end
 end
