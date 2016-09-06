@@ -26,27 +26,52 @@ module Statistic
 
 module_function
 
-  def two_sample_t_val( xmean, ymean, xvariance, yvariance, nx, ny )
+  #-- 等分散の検定
+  def calc_f0( xvariance, yvariance )
+    f0=xvariance/yvariance
+
+    return f0
+  end
+
+  def two_sample_f_test( xvariance, yvariance, nx, ny, p=0.05, i=2 )
+    f0=calc_f0( xvariance, yvariance )
+
+    f_val1=GSL::Cdf.fdist_Qinv( p/i.to_f, nx-1, ny-1 )
+    f_val2=GSL::Cdf.fdist_Qinv( 1.0-p/i.to_f, nx-1, ny-1 )
+
+    state=false   #-- 2組の標本の母分散に差がない(帰無仮説)
+    if i==1       #------ 片側検定
+      state=true if f0<f_val1   #--2組の標本の母分散に差がある
+    elsif i==2    #------ 両側検定
+      state=true if f0<f_val1 or f_val2<f0   #--2組の標本の母分散に差がある
+    end
+
+    return state, f0, f_val1, f_val2
+  end
+
+  #-- 母平均の検定
+  def calc_two_sample_t_val( xmean, ymean, xvariance, yvariance, nx, ny )
     sp2=((nx-1).to_f*xvariance.to_f + (ny-1).to_f*yvariance.to_f)/(nx+ny-2).to_f
     bunbo2=1.0/nx.to_f+1.0/ny.to_f
-    t_val=(xmean.to_f-ymean.to_f)/(Math::sqrt(sp2)*Math::sqrt(bunbo2))
+    t0=(xmean.to_f-ymean.to_f)/(Math::sqrt(sp2)*Math::sqrt(bunbo2))
 
-    return t_val
+    return t0
   end
 
   def two_sample_t_test( xmean, ymean, xvariance, yvariance, nx, ny, p=0.05, i=2 )
-    t_val=two_sample_t_val( xmean, ymean, xvariance, yvariance, nx, ny )
+    t0=calc_two_sample_t_val( xmean, ymean, xvariance, yvariance, nx, ny )
 
     nu=nx+ny-2
-    t_a=GSL::Cdf.tdist_Qinv(p/i.to_f,nu)
+    t_val=GSL::Cdf.tdist_Qinv(p/i.to_f,nu)
 
-    if t_val.abs > t_a
-      state=true
-    elsif t_val.abs <= t_a
+    #---- 帰無仮説: 2組の標本の平均に差がない
+    if t0.abs > t_val   #--- 棄却、差がある
       state=false
+    elsif t0.abs <= t_val   #--- 採択、差がない
+      state=true
     end
 
-    return state, t_val
+    return state, t0, t_val
   end
 
 end
