@@ -1,4 +1,7 @@
 require "narray"
+require "numru/gphys"
+include NumRu
+
 module Statistic
 
 module_function
@@ -29,6 +32,20 @@ module_function
     tau_g=t_g*((4*nlength+10.0)/(9*nlength*(nlength-1)))**0.5
 
     return tau,tau_g
+  end
+  
+  def detrend_linear_trend( gphys )
+    load  "/home/eriko/db/git/ruby/statistical_analysis/statistic.rb"
+    fx=gphys.coord(0).val-gphys.coord(0).mean
+    fy=gphys.val.to_na
+    a,b,r=Statistic::rcor(fx, fy)
+
+    linear_trend=a*fx+b
+
+    detrend=gphys.copy-linear_trend
+    detrend=detrend.rename("detrend")
+    
+    return detrend,linear_trend,r
   end
 
 end
